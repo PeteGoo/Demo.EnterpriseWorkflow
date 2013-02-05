@@ -1,0 +1,52 @@
+﻿@model MagicEightBall.Models.EightBallQuestionModel
+
+@{
+    ViewBag.Title = "The Magic Eight Ball";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Question").watermark({ html: "Ask your question", cls: "formWatermark" });
+        $("#Email").watermark({ html: "Enter your email address", cls: "formWatermark" });
+    });
+</script>
+
+<div class="centerContent">
+    <h2>Ask the Magic Eight Ball a question</h2>
+</div>
+
+<div class="centerContent">
+    
+    <img src="@Url.Content("~/images/black-eight-ball.jpg")"/>
+</div>
+@using (Html.BeginForm()) {
+<div class="centerContent">
+
+    <div>
+        @Html.TextBoxFor(m => m.Question, new { @class = "bigQuestion", autocomplete = "off"}) 
+        
+    </div>
+    <div>
+        @Html.TextBoxFor(m => m.Email, new { @class = "bigQuestion" }) 
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div>
+        @Html.DropDownListFor(m => m.EightBallType, MagicEightBall.Models.EightBallQuestionModel.EightBallWorkflows.Select(eightballType => new SelectListItem(){Text = eightballType.Value, Value = eightballType.Key}), "...Choose an Eight Ball...")
+    </div>
+    
+    <input type="submit" value="Ask"/>
+
+    <div>
+        @Html.ValidationMessageFor(m => m.Question)
+    </div>
+    <div>
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div>
+        @Html.ValidationMessageFor(m => m.EightBallType)
+    </div>
+</div>
+    
+<div class="centerContent"><h3>@ViewBag.Message</h3></div>
+    
+}

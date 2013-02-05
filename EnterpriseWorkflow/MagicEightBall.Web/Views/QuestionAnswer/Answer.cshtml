@@ -1,0 +1,46 @@
+﻿@model MagicEightBall.Models.QuestionAnswerModel
+
+@{
+    ViewBag.Title = "Magic Eight Ball - Answer the Question";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Answer").watermark({ html: "Enter your answer", cls: "formWatermark" });
+    });
+</script>
+
+<div class="centerContent">
+    <h2>Answer the question</h2>
+    <div>Workflow: @ViewBag.WorkflowName</div>
+    <div>Question Id: @ViewBag.QuestionId</div>
+</div>
+
+<div class="centerContent">
+    
+    <img src="@Url.Content("~/images/black-eight-ball.jpg")"/>
+</div>
+
+<div class="centerContent">
+    <h2>@ViewBag.Question</h2>
+</div>
+
+@using (Html.BeginForm()) {
+<div class="centerContent">
+
+    <div>
+        @Html.TextBoxFor(m => m.Answer, new { @class = "bigQuestion", autocomplete = "off" }) 
+        
+    </div>
+
+    <input type="submit" value="Answer"/>
+
+    <div>
+        @Html.ValidationMessageFor(m => m.Answer)
+    </div>
+</div>
+    
+<div class="centerContent"><h3>@ViewBag.Message</h3></div>
+    
+}
+
